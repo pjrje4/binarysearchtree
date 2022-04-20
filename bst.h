@@ -7,11 +7,11 @@ Heap
 
 class node {
 private:
-	int data;
 public:
 	node(int number); // Constructor
 	~node(); // Destructor
 	node* left;
 	node* right;
+	int data;
 };
 

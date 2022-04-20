@@ -12,6 +12,41 @@ Heap
 
 using namespace std;
 
+void add(int num, node* &r) {
+	if (r = NULL) {
+		r = new node(num);
+	}
+	else if (num < r->data) {
+		add(num, r->left);
+	}
+	else if (num > r->data) {
+		add(num, r->right);
+	}	
+	return;
+}
+void print(node* r, int level) {
+	// emptee tree
+	if (r == NULL) {
+		return;
+	}
+
+	// Increase distance between levels
+	level += 1;
+
+	// Process right child first
+	print(r->right, level);
+
+	// Print current node after space
+	cout << endl;
+	for (int i = 1; i < level; i++) {
+		cout<<" ";
+	}
+	cout << r->data << endl;
+
+	// Process left child
+	print(r->left, level);
+}
+
 int main() {
 	node* root = NULL;
 	//create new bst
@@ -27,7 +62,7 @@ int main() {
 			}
 			if (number != 0) {	
 				cout << number << endl;
-				//addnumber
+				add(number, root);
 			}
 		}
 	}
@@ -47,7 +82,7 @@ int main() {
 			while (iFile >> number) {
 				if (number != 0) {
 					cout << number << endl;
-					//add number
+					add(number, root); //add number
 				}
 			}
 		}	
@@ -56,7 +91,12 @@ int main() {
 		cout << "Enter a command (ADD), (SEARCH), (DELETE), (PRINT) or (QUIT): " << endl;
 		cin >> input;
 		if (strcmp(input, "ADD") == 0) { // Add students
-		
+			cout << "Enter a number to add: " << endl;
+			int number = 0;
+			cin >> number;
+			if (number != 0) {
+				add(number, root);
+			}
 		}
 		else if (strcmp(input, "SEARCH") == 0) { // Search students
 			
@@ -65,7 +105,7 @@ int main() {
 
 		}
 		else if (strcmp(input, "PRINT") == 0) { // Print students
-
+			print(root);
 		}
 		else if (strcmp(input, "QUIT") == 0) { // Quit program
 			return 0;
