@@ -5,15 +5,15 @@
 
 #if 0
 Justin Iness
-3/28/2022
+4/20/2022
 C++ Programming
-Heap
+Binary Search Tree
 #endif
 
 using namespace std;
 
 node::node(int number) { // parametized constructor
-	data = number;
+	data = number; // set values
 	left = NULL;
 	right = NULL;
 }

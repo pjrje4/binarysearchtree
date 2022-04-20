@@ -1,8 +1,8 @@
 #if 0
 Justin Iness
-3/17/2022
+4/20/2022
 C++ Programming
-Heap
+Binary Search Tree
 #endif
 
 class node {
@@ -10,6 +10,7 @@ private:
 public:
 	node(int number); // Constructor
 	~node(); // Destructor
+	// stored data
 	node* left;
 	node* right;
 	int data;

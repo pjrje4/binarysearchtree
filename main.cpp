@@ -5,15 +5,15 @@
 
 #if 0
 Justin Iness
-4/5/2022
+4/20/2022
 C++ Programming
-Heap
+Binary Search Tree
 #endif
 
 using namespace std;
 
-void add(int num, node* &r) {
-	if (r = NULL) {
+void add(int num, node* &r) { // add numbers
+	if (r == NULL) {
 		r = new node(num);
 	}
 	else if (num < r->data) {
@@ -24,27 +24,88 @@ void add(int num, node* &r) {
 	}	
 	return;
 }
-void print(node* r, int level) {
+void print(node* r, int level) { // print tree visually
 	// emptee tree
 	if (r == NULL) {
 		return;
 	}
 
-	// Increase distance between levels
+	// increase spaces
 	level += 1;
 
-	// Process right child first
+	// right 
 	print(r->right, level);
 
-	// Print current node after space
-	cout << endl;
+	// current data and space
 	for (int i = 1; i < level; i++) {
-		cout<<" ";
+		cout << "   ";
 	}
 	cout << r->data << endl;
 
-	// Process left child
+	// left
 	print(r->left, level);
+}
+bool search(int num, node* r) { // search
+	if (r == NULL) {
+		cout << num << " not in tree." << endl;
+		return false;
+	}
+	else if (r->data == num) {
+		cout << num << " is in tree." << endl;
+		return true;
+	}
+	else if (num < r->data) {
+		if (search(num, r->left)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else if (num > r->data) {
+		if (search(num, r->right)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}	
+}
+void del(int num, node* &r) {	
+	if (r == NULL) {
+		cout << num << " not in tree." << endl;
+	}
+	else if (r->data == num) {
+		cout << "Deleting " << num << endl;
+		if (r->left == NULL || r->right == NULL) { // 1 long or 1 child lists
+			if (r->left == NULL && r->right == NULL) { // 1 long list
+				r = NULL; // del root
+			}
+			else { // one child lists
+				if (r->left != NULL) { // left child
+					r = r->left;
+				}
+				else if (r->right != NULL) { // right child
+					r = r->right;
+				}
+			}
+		}
+		else { // list with 2 children
+			 node* prevInList = r->left;
+			 while (prevInList->right != NULL) {
+				 prevInList = prevInList->right;
+			 }
+			 r->data = prevInList->data;
+			 del(prevInList->data, r->left);
+		}
+
+	}
+	else if (num < r->data) {
+		del(num, r->left);
+	}
+	else if (num > r->data) {
+		del(num, r->right);
+	}	
 }
 
 int main() {
@@ -61,7 +122,6 @@ int main() {
 				break;
 			}
 			if (number != 0) {	
-				cout << number << endl;
 				add(number, root);
 			}
 		}
@@ -81,7 +141,6 @@ int main() {
 			int number = 0;
 			while (iFile >> number) {
 				if (number != 0) {
-					cout << number << endl;
 					add(number, root); //add number
 				}
 			}
@@ -99,13 +158,24 @@ int main() {
 			}
 		}
 		else if (strcmp(input, "SEARCH") == 0) { // Search students
+			cout << "Enter a number to search for: " << endl;
+			int number = 0;
+			cin >> number;
+			if (number != 0) {
+				search(number, root);
+			}
 			
 		}
 		else if (strcmp(input, "DELETE") == 0) { // Delete students
-
+			cout << "Enter a number to delete: " << endl;
+			int number = 0;
+			cin >> number;
+			if (number != 0) {
+				del(number, root);
+			}
 		}
 		else if (strcmp(input, "PRINT") == 0) { // Print students
-			print(root);
+			print(root, 0);
 		}
 		else if (strcmp(input, "QUIT") == 0) { // Quit program
 			return 0;
