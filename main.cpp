@@ -46,15 +46,15 @@ void print(node* r, int level) { // print tree visually
 	print(r->left, level);
 }
 bool search(int num, node* r) { // search
-	if (r == NULL) {
+	if (r == NULL) { // not in tree
 		cout << num << " not in tree." << endl;
 		return false;
 	}
-	else if (r->data == num) {
+	else if (r->data == num) { // in tree
 		cout << num << " is in tree." << endl;
 		return true;
 	}
-	else if (num < r->data) {
+	else if (num < r->data) { // search left
 		if (search(num, r->left)) {
 			return true;
 		}
@@ -62,7 +62,7 @@ bool search(int num, node* r) { // search
 			return false;
 		}
 	}
-	else if (num > r->data) {
+	else if (num > r->data) { // search right
 		if (search(num, r->right)) {
 			return true;
 		}
@@ -71,7 +71,7 @@ bool search(int num, node* r) { // search
 		}
 	}	
 }
-void del(int num, node* &r) {	
+void del(int num, node* &r) {	// delete function
 	if (r == NULL) {
 		cout << num << " not in tree." << endl;
 	}
@@ -100,17 +100,17 @@ void del(int num, node* &r) {
 		}
 
 	}
-	else if (num < r->data) {
+	else if (num < r->data) { //search left
 		del(num, r->left);
 	}
-	else if (num > r->data) {
+	else if (num > r->data) { // serach right
 		del(num, r->right);
 	}	
 }
 
 int main() {
 	node* root = NULL;
-	//create new bst
+	//create new root bst
 	char input[5000];
 	cout << "(FILE) or Command Line (INPUT)" << endl;
 	cin.getline(input, 10);
@@ -149,7 +149,7 @@ int main() {
 	while (true) {
 		cout << "Enter a command (ADD), (SEARCH), (DELETE), (PRINT) or (QUIT): " << endl;
 		cin >> input;
-		if (strcmp(input, "ADD") == 0) { // Add students
+		if (strcmp(input, "ADD") == 0) { // Add number
 			cout << "Enter a number to add: " << endl;
 			int number = 0;
 			cin >> number;
@@ -157,7 +157,7 @@ int main() {
 				add(number, root);
 			}
 		}
-		else if (strcmp(input, "SEARCH") == 0) { // Search students
+		else if (strcmp(input, "SEARCH") == 0) { // Search number
 			cout << "Enter a number to search for: " << endl;
 			int number = 0;
 			cin >> number;
@@ -166,7 +166,7 @@ int main() {
 			}
 			
 		}
-		else if (strcmp(input, "DELETE") == 0) { // Delete students
+		else if (strcmp(input, "DELETE") == 0) { // Delete number
 			cout << "Enter a number to delete: " << endl;
 			int number = 0;
 			cin >> number;
@@ -174,7 +174,7 @@ int main() {
 				del(number, root);
 			}
 		}
-		else if (strcmp(input, "PRINT") == 0) { // Print students
+		else if (strcmp(input, "PRINT") == 0) { // Print number
 			print(root, 0);
 		}
 		else if (strcmp(input, "QUIT") == 0) { // Quit program
